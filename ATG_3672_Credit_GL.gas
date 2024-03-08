@@ -1,0 +1,254 @@
+Program.Sub.ScreenSU.Start
+gui.uploading..create
+gui.uploading..caption("Uploading")
+gui.uploading..size(6120,2100)
+gui.uploading..position(0,0)
+gui.uploading..event(unload,uploading_unload)
+gui.uploading..alwaysontop(False)
+gui.uploading..fontname("Arial")
+gui.uploading..fontsize(8)
+gui.uploading..forecolor(0)
+gui.uploading..fontstyle(,,,,)
+gui.uploading..BackColor(-2147483633)
+gui.uploading..controlbox(True)
+gui.uploading..maxbutton(False)
+gui.uploading..minbutton(False)
+gui.uploading..mousepointer(0)
+gui.uploading..moveable(True)
+gui.uploading..sizeable(False)
+gui.uploading..ShowInTaskBar(True)
+gui.uploading..titlebar(True)
+gui.uploading.lbl1.create(label)
+gui.uploading.lbl1.caption("Uploading...")
+gui.uploading.lbl1.backstyle(0)
+gui.uploading.lbl1.visible(True)
+gui.uploading.lbl1.size(5745,1095)
+gui.uploading.lbl1.zorder(1)
+gui.uploading.lbl1.position(200,200)
+gui.uploading.lbl1.enabled(True)
+gui.uploading.lbl1.fontname("Arial")
+gui.uploading.lbl1.fontsize(48)
+gui.uploading.lbl1.BackColor(-2147483633)
+
+
+gui.GlDate..create
+gui.GlDate..caption("GL Upload")
+gui.GlDate..size(3090,1965)
+gui.GlDate..position(0,0)
+gui.GlDate..event(unload,uploading_unload)
+gui.GlDate..alwaysontop(False)
+gui.GlDate..fontname("Arial")
+gui.GlDate..fontsize(8)
+gui.GlDate..forecolor(0)
+gui.GlDate..fontstyle(,,,,)
+gui.GlDate..BackColor(-2147483633)
+gui.GlDate..controlbox(True)
+gui.GlDate..maxbutton(False)
+gui.GlDate..minbutton(False)
+gui.GlDate..mousepointer(0)
+gui.GlDate..moveable(True)
+gui.GlDate..sizeable(False)
+gui.GlDate..ShowInTaskBar(True)
+gui.GlDate..titlebar(True)
+gui.GlDate.txtyear.create(textbox)
+gui.GlDate.txtyear.text("")
+gui.GlDate.txtyear.visible(True)
+gui.GlDate.txtyear.size(615,315)
+gui.GlDate.txtyear.zorder(0)
+gui.GlDate.txtyear.position(325,400)
+gui.GlDate.txtyear.enabled(True)
+gui.GlDate.txtyear.fontname("Arial")
+gui.GlDate.txtyear.fontsize(8)
+gui.GlDate.txtyear.maxLength(2)
+gui.GlDate.txtyear.BackColor(-2147483643)
+gui.GlDate.txtmonth.create(textbox)
+gui.GlDate.txtmonth.text("")
+gui.GlDate.txtmonth.visible(True)
+gui.GlDate.txtmonth.size(615,315)
+gui.GlDate.txtmonth.zorder(0)
+gui.GlDate.txtmonth.position(1800,400)
+gui.GlDate.txtmonth.enabled(True)
+gui.GlDate.txtmonth.fontname("Arial")
+gui.GlDate.txtmonth.fontsize(8)
+gui.GlDate.txtmonth.maxLength(2)
+gui.GlDate.txtmonth.BackColor(-2147483643)
+gui.GlDate.lbl1.create(label)
+gui.GlDate.lbl1.caption("GL Year (YY)")
+gui.GlDate.lbl1.backstyle(0)
+gui.GlDate.lbl1.visible(True)
+gui.GlDate.lbl1.size(1065,255)
+gui.GlDate.lbl1.zorder(1)
+gui.GlDate.lbl1.position(200,95)
+gui.GlDate.lbl1.enabled(True)
+gui.GlDate.lbl1.fontname("Arial")
+gui.GlDate.lbl1.fontsize(8)
+gui.GlDate.lbl1.BackColor(-2147483633)
+gui.GlDate.lbl2.create(label)
+gui.GlDate.lbl2.caption("GL Month (MM)")
+gui.GlDate.lbl2.backstyle(0)
+gui.GlDate.lbl2.visible(True)
+gui.GlDate.lbl2.size(1140,255)
+gui.GlDate.lbl2.zorder(1)
+gui.GlDate.lbl2.position(1600,85)
+gui.GlDate.lbl2.enabled(True)
+gui.GlDate.lbl2.fontname("Arial")
+gui.GlDate.lbl2.fontsize(8)
+gui.GlDate.lbl2.BackColor(-2147483633)
+gui.GlDate.cmdupload.create(button)
+gui.GlDate.cmdupload.caption("Upload")
+gui.GlDate.cmdupload.visible(True)
+gui.GlDate.cmdupload.size(855,375)
+gui.GlDate.cmdupload.zorder(0)
+gui.GlDate.cmdupload.position(900,900)
+gui.GlDate.cmdupload.enabled(True)
+gui.GlDate.cmdupload.fontname("Arial")
+gui.GlDate.cmdupload.fontsize(8)
+gui.GlDate.cmdupload.event(click,cmdupload_click)
+gui.GlDate.txtyear.tabstop(True)
+gui.GlDate.txtyear.tabindex(1)
+gui.GlDate.txtmonth.tabstop(True)
+gui.GlDate.txtmonth.tabindex(2)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'MA Ford GL Upload from Wells Fargo bank credit card transactions.
+'Can run off any custom hook.
+'This uses the Mapper project ATG_GL_UPLOAD
+
+Gui.GlDate..Show
+
+Program.Sub.Main.End
+
+program.sub.uploading_unload.start
+F.Intrinsic.Control.End
+
+program.sub.uploading_unload.end
+
+program.sub.cmdupload_click.start
+V.Local.cell.Declare(String)
+V.Local.FileLoc.Declare(String)
+V.Local.r.Declare(Long)
+V.Local.mapdir.Declare(String)
+V.Local.time.Declare(String)
+V.Local.filedir.Declare(String)
+V.Local.glupload.Declare(String)
+V.Local.filename.Declare(String)
+'GL START
+V.Local.account.Declare(String)
+V.Local.Amount.Declare(String)
+V.Local.Description.Declare(String)
+'YY
+'MM
+V.Local.voucher.Declare(String)
+V.Local.Reference.Declare(String)
+V.Local.sUser.Declare(String)
+
+F.Intrinsic.String.Replace(V.Ambient.Now,"/","-",V.Local.time)
+F.Intrinsic.String.Replace(V.Local.time,":",".",V.Local.time)
+
+'Open file to be used in the Upload
+
+Function.Intrinsic.UI.ShowOpenFileDialog("","*.xls","C:\",Variable.local.FileLoc)
+Gui.uploading..Show
+Gui.GlDate..Visible(false)
+'Format Excel File for upload
+'Open Excel File
+F.Automation.MSExcel.CreateAppObject("ExcelApp")
+F.Automation.MSExcel.OpenWorkbook("ExcelApp","Pcard",V.Local.FileLoc)
+F.Automation.MSExcel.OpenWorksheet("ExcelApp","CalcWS",1)
+'F.Automation.OOCalc.OpenWorkbook("OOContainer","OOApp","CalcImport",V.Local.FileLoc)
+'F.Automation.OOCalc.OpenWorksheet("CalcImport","CalcWS",0)
+'Setup Month and Year columns for the GL Upload
+
+'F.Automation.OOCalc.WriteCell("calcWS",0,27,"Month")
+'F.Automation.OOCalc.WriteCell("calcWS",0,26,"Year")
+
+V.Local.r.Set(1)
+F.Automation.MSExcel.readCell("CalcWS",V.Local.r,8,V.Local.cell)
+F.Intrinsic.Control.DoUntil(V.Local.cell,=,"")
+	'Change amount to negative (credit) 23
+	F.Automation.MSExcel.readCell("CalcWS",V.Local.r,7,V.Local.cell)
+	F.Intrinsic.Control.If(V.Local.cell,=,"C")
+		F.Automation.MSExcel.readCell("CalcWS",V.Local.r,8,V.Local.cell)
+		F.Intrinsic.String.Replace(V.Local.cell,"-","",V.Local.cell)
+		F.Intrinsic.String.Concat("-",V.Local.cell,V.Local.cell)
+	F.Intrinsic.Control.Elseif(V.Local.cell,=,"")
+		F.Automation.MSExcel.readCell("CalcWS",V.Local.r,8,V.Local.cell)
+		F.Intrinsic.String.Replace(V.Local.cell,"-","",V.Local.cell)
+		F.Intrinsic.String.Concat("-",V.Local.cell,V.Local.cell)
+	F.Intrinsic.Control.Else
+		F.Automation.MSExcel.readCell("CalcWS",V.Local.r,8,V.Local.cell)
+	F.Intrinsic.Control.EndIf
+	V.Local.Amount.Set(V.Local.cell)
+	'F.Automation.MSExcel.WriteCell("calcWS",V.Local.r,8,V.Local.cell)
+
+	'Make Date smaller to fit in reference field
+	F.Automation.MSExcel.readCell("CalcWS",V.Local.r,9,V.Local.cell)
+	F.Intrinsic.String.Replace(V.Local.cell,"-","",V.Local.cell)
+	F.Intrinsic.String.Concat("'",V.Local.cell,V.Local.cell)
+	V.Local.voucher.Set(V.Local.cell)
+	'F.Automation.MSExcel.WriteCell("calcWS",V.Local.r,9,V.Local.cell)
+
+	'Write year/month	
+'	F.Intrinsic.String.Concat("'",V.Screen.GlDate!txtmonth.Text,V.Local.cell)
+'	F.Automation.MSExcel.WriteCell("calcWS",V.Local.r,19,V.Local.cell)
+'	F.Intrinsic.String.Concat("'",V.Screen.GlDate!txtyear.Text,V.Local.cell)
+'	F.Automation.MSExcel.WriteCell("calcWS",V.Local.r,18,V.Local.cell)
+	'Set Account and Description
+	F.Automation.MSExcel.readCell("CalcWS",V.Local.r,11,V.Local.cell)
+	V.Local.account.Set(V.Local.cell)
+	F.Automation.MSExcel.readCell("CalcWS",V.Local.r,12,V.Local.cell)
+	V.Local.Description.Set(V.Local.cell)
+
+	'Goto next row
+	F.Intrinsic.Math.Add(V.Local.r,1,V.Local.r)
+	F.Automation.MSExcel.readCell("CalcWS",V.Local.r,8,V.Local.cell)
+	F.Intrinsic.Control.If(V.Local.CELL,<>,"")
+		F.Intrinsic.String.Concat(V.LOCAL.glupload,V.Local.account,",",V.Local.Amount,",",V.Local.Description,",",V.screen.GlDate!txtyear.text,",",V.screen.GlDate!txtmonth.text,",",V.Local.voucher,",",V.Local.Reference,V.Ambient.NewLine,V.Local.glupload)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Concat(V.LOCAL.glupload,V.Local.account,",",V.Local.Amount,",",V.Local.Description,",",V.screen.GlDate!txtyear.text,",",V.screen.GlDate!txtmonth.text,",",V.Local.voucher,",",V.Local.Reference,V.Local.glupload)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Loop
+
+
+'Save Changes to Excel Doc
+F.Intrinsic.String.Concat("C:\",V.Local.time,".xls",V.Local.FileLoc)
+
+F.Automation.MSExcel.SaveWorkbook("Pcard")
+F.Automation.Generic.DestroyObject("CalcWS")
+F.Automation.Generic.DestroyObject("Pcard")
+F.Automation.Generic.DestroyObject("ExcelApp")
+'F.Automation.OOCalc.SaveWorkbook("OOContainer","Calcimport",V.Local.FileLoc)
+
+'F.Intrinsic.String.Concat(V.Caller.PluginsDir,"\GL_BANK_IMPORT.XML",V.Local.mapdir)
+
+'Run upload with the Global Shop mapper project ATG_GL_UPLOAD
+'F.Global.Mapper.CallMapper("xml:file",V.Local.mapdir,1,V.Local.FileLoc,True)
+'changed on 8/18/2010 by enm
+F.Intrinsic.String.RPad(V.Caller.User," ",8,V.Local.sUser)
+F.Intrinsic.String.Concat(V.Caller.FilesDir,"\","GL",V.Caller.Terminal,V.Caller.CompanyCode,V.Local.filedir)
+F.Intrinsic.File.String2File(V.Local.filedir,V.Local.glupload)
+F.Intrinsic.String.Concat("GL",V.Caller.Terminal,V.Caller.CompanyCode,V.Local.filename)
+F.Intrinsic.String.RPad(V.Local.filename," ",12,V.Local.filename)
+F.Intrinsic.String.Concat(V.Ambient.QUADQuote,V.Caller.CompanyCode,V.Local.filename,V.Local.sUser.UCase,V.Ambient.QUADQuote,V.Local.glupload)
+F.Intrinsic.Debug.Stop
+
+F.Intrinsic.Task.LaunchGSSSync("XGL004","-C",V.Local.glupload)
+
+Gui.uploading..Visible(false)
+
+'F.Intrinsic.String.Concat("'",V.Local.FileLoc,"' has been uploaded into a GL Batch.",V.Local.FileLoc)
+F.Intrinsic.UI.Msgbox("Upload Complete","UploadComplete")
+
+F.Intrinsic.Control.CallSub(Uploading_unload)
+
+program.sub.cmdupload_click.end
+
+
